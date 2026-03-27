@@ -1,0 +1,8 @@
+nanopore_basecalled-guppy.fastq.gz
+y/
+env/
+work/
+.nextflow/
+.nextflow.log*
+
+.env
