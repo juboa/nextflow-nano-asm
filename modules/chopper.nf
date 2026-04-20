@@ -3,6 +3,7 @@
 process CHOPPER {
 	tag "${sample_id}"
 	publishDir "${params.outdir_prefix}/${sample_id}/chopper/", mode: "copy"
+	conda "bioconda::chopper"
 	
 	input:
 	tuple val(sample_id), path(fastq_file)
@@ -12,7 +13,7 @@ process CHOPPER {
 	
 	script:
 	"""
-		gunzip -c ${fastq_file} | chopper -q 10 -l 500 -t ${task.cpus}| gzip > ${sample_id}_trimmed.fastq.gz
+		gunzip -c ${fastq_file} | chopper -q ${params.chopper_min_quality} -l ${params.chopper_min_length} -t ${task.cpus}| gzip > ${sample_id}_trimmed.fastq.gz
 	"""
 }
 

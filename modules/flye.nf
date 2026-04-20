@@ -3,7 +3,6 @@ process FLYE {
 	
 	tag "${sample_id}"
 	publishDir "${params.outdir_prefix}/${sample_id}/flye/", mode: "copy"
-	
 	conda "bioconda::flye=2.9.3"
 
 	input:

@@ -1,25 +1,35 @@
 
-params.outdir_prefix = "results"
 
 include {NANOPLOT as NANOPLOT_BEFORE} from './modules/nanoplot'
 include {NANOPLOT as NANOPLOT_AFTER} from './modules/nanoplot'
 include {CHOPPER} from './modules/chopper'
 include {FLYE} from './modules/flye'
 include {QUAST} from './modules/quast'
+include {PROKKA} from './modules/prokka'
+include {CHECKM2} from './modules/checkm2'
 
 
 workflow {
-	input_ch = Channel.
-					fromPath(params.input)
+	input_ch = Channel.fromPath(params.input_fastq)
 					.map { file -> tuple(file.simpleName, file)}
 
+
+
 	NANOPLOT_BEFORE(input_ch, "BEFORE")
+	
 	CHOPPER(input_ch)
+
 	NANOPLOT_AFTER(CHOPPER.out.trimmed_reads, "AFTER")
 
 	FLYE(CHOPPER.out.trimmed_reads)
 
 	QUAST(FLYE.out.assembly)
+
+	PROKKA(FLYE.out.assembly)
+
+	CHECKM2(FLYE.out.assembly)
+
+	//ANI_CHECK()
 	
 }
 

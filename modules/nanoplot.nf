@@ -3,7 +3,8 @@ process NANOPLOT {
 	
 	tag "${sample_id}"
 	publishDir "${params.outdir_prefix}/${sample_id}/nanoplot_${step}/", mode: "copy"
-	
+	conda "bioconda::nanoplot"
+
 	input:
 	tuple val(sample_id), path(fastq_file)
 	val(step)
@@ -13,7 +14,7 @@ process NANOPLOT {
 	
 	script:
 	"""
-		NanoPlot --fastq ${fastq_file} --outdir . --threads ${task.cpus}
+		NanoPlot --fastq ${fastq_file} --outdir .
 	"""
 }
 
