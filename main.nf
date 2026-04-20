@@ -7,6 +7,7 @@ include {FLYE} from './modules/flye'
 include {QUAST} from './modules/quast'
 include {PROKKA} from './modules/prokka'
 include {CHECKM2} from './modules/checkm2'
+include {MULTIQC} from './modules/multiqc'
 
 
 workflow {
@@ -30,6 +31,15 @@ workflow {
 	CHECKM2(FLYE.out.assembly)
 
 	//ANI_CHECK()
+	multiqc_input = NANOPLOT_BEFORE.out.stats
+		.mix(NANOPLOT_AFTER.out.stats)
+		.mix(QUAST.out.quast_report)
+		.mix(PROKKA.out.annotation)
+		.mix(CHECKM2.out.checkm2_report)
+		.collect()
+	
+
+	MULTIQC(multiqc_input)
 	
 }
 

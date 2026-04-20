@@ -9,7 +9,7 @@ process CHECKM2 {
     tuple val(sample_id), path(assembly)
 
     output:
-    path(sample_id)
+    path(sample_id), emit: checkm2_report
 
     script:
     """

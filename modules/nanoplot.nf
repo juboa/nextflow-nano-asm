@@ -10,11 +10,13 @@ process NANOPLOT {
 	val(step)
 
 	output:
-	path "*"
+	path "${sample_id}_sample_${step}", emit: stats
 	
+
 	script:
 	"""
-		NanoPlot --fastq ${fastq_file} --outdir .
+		NanoPlot --fastq ${fastq_file} --outdir ${sample_id}_sample_${step}	--prefix ${sample_id}_${step}
+
 	"""
 }
 

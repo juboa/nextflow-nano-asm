@@ -7,7 +7,7 @@ process QUAST {
     tuple val(sample_id), path(assembly)
 
     output:
-    path "*"
+    path "*", emit: quast_report
 
     script:
     """

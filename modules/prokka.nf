@@ -7,7 +7,7 @@ process PROKKA {
     tuple val(sample_id), path(assembly)
 
     output:
-    path(sample_id)
+    path(sample_id), emit: annotation
 
     script:
     """
