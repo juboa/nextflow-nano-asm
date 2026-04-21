@@ -6,7 +6,7 @@ process FLYE {
 	conda "bioconda::flye=2.9.3"
 
 	input:
-	tuple val(sample_id), path(fastq_file)
+	tuple val(sample_id), path(trimmed_fastq)
 
 	output:
 	tuple val(sample_id), path("${sample_id}_assembly.fasta"),	emit: assembly
@@ -14,7 +14,7 @@ process FLYE {
 	
 	script:
 	"""
-		flye --nano-hq ${fastq_file} --out-dir . --threads ${task.cpus}
+		flye --nano-hq ${trimmed_fastq} --out-dir . --threads ${task.cpus}
 		mv assembly.fasta ${sample_id}_assembly.fasta
 	"""
 }

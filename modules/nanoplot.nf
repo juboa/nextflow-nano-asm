@@ -3,7 +3,7 @@ process NANOPLOT {
 	
 	tag "${sample_id}"
 	publishDir "${params.outdir_prefix}/${sample_id}/nanoplot_${step}/", mode: "copy"
-	conda "bioconda::nanoplot"
+	conda "python=3.11 bioconda::nanoplot=1.46.2"
 
 	input:
 	tuple val(sample_id), path(fastq_file)

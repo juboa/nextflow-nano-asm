@@ -7,3 +7,4 @@ results/
 .nextflow.log*
 *fastq.gz
 .env
+test/
